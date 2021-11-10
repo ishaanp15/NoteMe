@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+
+import MainPage from './MyComponents/MainPage';
+import Login from './MyComponents/Login';
+import React, { useState } from "react";
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 function App() {
+  let [redirect,setRedirect] = useState("/Login")
+
+   const Loggedin = () => {
+     setRedirect(redirect="/user/home")
+   }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+     <Router>
+      <Switch>
+          <Route  path="/user">
+    <>
+   
+    <MainPage/>
+    </>
+    </Route>
+      <Route exact path="/Login">
+     <Login Loggedin = {Loggedin} />
+    </Route>
+    </Switch>
+     <Redirect to={redirect} /> 
+    </Router>
+    </>
   );
 }
 
